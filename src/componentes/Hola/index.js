@@ -2,14 +2,10 @@ import './index.css'
 
 import React from 'react';
 
-export const Hola = ( { nombre } ) => {
+export const Hola = ( { nombre } ) => <h1 className="titulo">Hola { nombre }</h1>
 
-    return(
-        <div>
-            <h1 className="titulo">Hola { nombre }</h1>
-        </div>
-    )
-}
+
+
 
 
 //export default Hola

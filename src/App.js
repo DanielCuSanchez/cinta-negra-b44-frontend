@@ -1,7 +1,8 @@
 import './App.css';
 
 import {Contenedor} from './componentes/Contenedor/'
-import { Hola } from './componentes/Hola/'
+//import { Hola } from './componentes/Hola/'
+//import { Counter } from './componentes/Counter/'
 import React from 'react';
 
 const nombres = ['Daniel','Hector','Miriam','Alice']

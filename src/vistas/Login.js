@@ -15,7 +15,9 @@ export const Login = () => {
         console.log({schemaCredentials,URL_LOGIN})
 
         try {
-            const respuesta = await fetch(URL_LOGIN,{method:'POST', type:'json', mode: 'cors' , body: schemaCredentials })
+            const respuesta = await fetch(URL_LOGIN,{method:'POST', headers:{
+                'Content-Type': 'application/json'
+              }, mode: 'cors' , body: JSON.stringify(schemaCredentials) })
             const res = await respuesta.json()
             alert('Login sucess')
             console.log(res)

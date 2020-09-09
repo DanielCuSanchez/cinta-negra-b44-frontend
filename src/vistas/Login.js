@@ -1,10 +1,18 @@
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+
+import { AuthContext } from '../contexts/AuthContext'
+import {Redirect} from 'react-router-dom'
 
 export const Login = () => {
+    //useState
     const [email, setEmail] = useState('')
     const [password, setPasword] = useState('')
     const [token, setToken] = useState('')
+    //context
+    const { loginUser } = useContext(AuthContext)
+
+
     console.log('ESTO ES EL EMAIL: '+ email)
     console.log('ESTO ES EL PASSWORD: '+ password)
     const handleForm = async (e) => {
@@ -19,6 +27,7 @@ export const Login = () => {
             const respuesta = await fetch(URL_LOGIN,{method:'POST', headers:{ 'Content-Type': 'application/json'}, mode: 'cors' , body: JSON.stringify(schemaCredentials) })
             const res = await respuesta.json()
             setToken(res.response)
+            loginUser(res.response)
             console.log(res)
         } catch (error) {
             console.log(error)
@@ -39,7 +48,7 @@ export const Login = () => {
                 <Button>Iniciar sesión</Button>
             </Form>
             {
-                token && <h5>{token}</h5>
+                token && <Redirect to='/' />
             }
         </>
     )

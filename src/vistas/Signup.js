@@ -1,6 +1,7 @@
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
-import { Link, Redirect } from 'react-router-dom'
 import React, { useState } from 'react'
+
+import { Link } from 'react-router-dom'
 
 export const Signup = () => {
     const [nombre, setNombre] = useState('')

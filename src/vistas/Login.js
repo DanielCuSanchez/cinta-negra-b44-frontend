@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPasword] = useState('')
-    console.log('ESTO ES EL EMAIL: '+email)
+    const [token, setToken] = useState('')
+    console.log('ESTO ES EL EMAIL: '+ email)
     console.log('ESTO ES EL PASSWORD: '+ password)
     const handleForm = async (e) => {
         e.preventDefault()
@@ -13,18 +14,15 @@ export const Login = () => {
         const schemaCredentials = {email, password}
         const URL_LOGIN = `${process.env.REACT_APP_BASE_BACKEND}/auth/login`
         console.log({schemaCredentials,URL_LOGIN})
-
+        //axios.post() === fetch(URL,{method: POST, body: JSON.stringify(dataENVIAR)})
         try {
-            const respuesta = await fetch(URL_LOGIN,{method:'POST', headers:{
-                'Content-Type': 'application/json'
-              }, mode: 'cors' , body: JSON.stringify(schemaCredentials) })
+            const respuesta = await fetch(URL_LOGIN,{method:'POST', headers:{ 'Content-Type': 'application/json'}, mode: 'cors' , body: JSON.stringify(schemaCredentials) })
             const res = await respuesta.json()
-            alert('Login sucess')
+            setToken(res.response)
             console.log(res)
         } catch (error) {
             console.log(error)
         }
-
     }
     return (
         <>
@@ -40,6 +38,9 @@ export const Login = () => {
                 </FormGroup>
                 <Button>Iniciar sesión</Button>
             </Form>
+            {
+                token && <h5>{token}</h5>
+            }
         </>
     )
 }

@@ -10,8 +10,8 @@ export const AuthContextProvider = (props) => {
 
     const loginUser = (token) =>{
         localStorage.setItem('APP_TAREAS',token)
-        const decoded = decode(token)
-        setUser(decoded)
+        const IDdecoded = decode(token)
+        setUser(IDdecoded)
         setIsAuth(true)
     }
     const logoutUser = ()=>{

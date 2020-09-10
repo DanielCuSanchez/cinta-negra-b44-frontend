@@ -4,6 +4,7 @@ import { Login } from './vistas/Login'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { Signup } from './vistas/Signup'
+import { Tareas } from './vistas/Tareas'
 
 export const Routes = () => {
     return (
@@ -12,6 +13,7 @@ export const Routes = () => {
             <Route exact path='/login' component={Login}  />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/contact' component={Contacto} />
+            <Route exact path='/tasks' component={Tareas} />
         </>
     )
 }

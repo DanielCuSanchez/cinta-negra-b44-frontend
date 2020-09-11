@@ -7,12 +7,19 @@ import { Tarea } from '../componentes/Tarea'
 import axios from 'axios'
 
 export const Tareas = () => {
-    const { isAuth, user } =  useContext(AuthContext)
     const [tareas, setTareas] = useState([])
-
+    const { user } =  useContext(AuthContext)
     useEffect(()=>{
-        const URL_TAREAS = `${process.env.REACT_APP_BASE_BACKEND}/usuarios/${user._id}/tareas`
+        // let globalUser = user
+        // if(globalUser === null){
+        //     const token = localStorage.getItem('APP_TAREAS')
+        //     const fetchUser = decode(token)
+        //     console.log('😀',fetchUser)
+        //     globalUser = fetchUser
+        // }
+        if(user === null ) return
         const consulta = async ()=>{
+            const URL_TAREAS = `${process.env.REACT_APP_BASE_BACKEND}/usuarios/${user._id}/tareas`
             console.log(URL_TAREAS)
             try {
                 const resTareas = await axios.get(URL_TAREAS,{ headers: {Authorization: `Bearer ${localStorage.getItem('APP_TAREAS')}`} })
@@ -22,12 +29,13 @@ export const Tareas = () => {
                 console.log(error)
             }
         }
+        //consulta(globalUser._id)
         consulta()
-    },[])
+    },[user])
 
     return (
         <>
-           { !isAuth && <Redirect to='/login' />}
+           { !localStorage.getItem('APP_TAREAS') && <Redirect to='/login' />}
            <h2>Tareas usuario</h2>
            {
                 tareas.length === 0
@@ -35,7 +43,7 @@ export const Tareas = () => {
                 :<Container>
                     <Row>
                         {
-                            tareas.map(tarea => <Col sm={6} md={4} className="text-center"> <Tarea {...tarea} /> </Col>)
+                            tareas.map(tarea => <Col key={tarea._id} sm={6} md={4} className="text-center"> <Tarea {...tarea} /> </Col>)
                         }
                      </Row>
                 </Container>

@@ -31,6 +31,7 @@ export const Login = () => {
             console.log(res)
         } catch (error) {
             console.log(error)
+            alert('Error')
         }
     }
     return (

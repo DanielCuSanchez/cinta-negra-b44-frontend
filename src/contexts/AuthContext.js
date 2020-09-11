@@ -7,10 +7,9 @@ export const AuthContext = createContext()
 export const AuthContextProvider = (props) => {
     const [isAuth, setIsAuth] = useState(false)
     const [user, setUser] = useState(null)
-
-    const loginUser = (token) =>{
+    const loginUser = async(token) =>{
         localStorage.setItem('APP_TAREAS',token)
-        const IDdecoded = decode(token)
+        const IDdecoded = await decode(token)
         setUser(IDdecoded)
         setIsAuth(true)
     }
@@ -26,10 +25,13 @@ export const AuthContextProvider = (props) => {
             setUser(decoded)
             setIsAuth(true)
         }
+        return(()=>{
+            console.log('Componente desmontado')
+        })
     },[])
 
     return(
-        <AuthContext.Provider value={ {isAuth, user, loginUser, logoutUser} }>
+        <AuthContext.Provider value={ {isAuth, user, loginUser, logoutUser, decode, setUser} }>
             { props.children }
         </AuthContext.Provider>
     )
